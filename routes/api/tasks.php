@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tasksController;
 
+
 Route::middleware(['jwt.auth', 'role:1,3'])->group(function () {
     Route::get('/tasks', [tasksController::class, 'index']);
     Route::get('/tasks/search', [tasksController::class, 'search']);

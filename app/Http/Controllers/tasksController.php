@@ -26,7 +26,6 @@ class tasksController extends Controller
     }
 
     public function search(Request $request) {
-
         $title = $request->input('title');
         $description = $request->input('description');
         $isComplete = $request->input('isComplete');
@@ -60,13 +59,15 @@ class tasksController extends Controller
     }
 
     public function store(Request $request) {
+
         $validator = Validator::make($request->all(),  [
             'title' => 'required',
             'description' => 'required',
             'expirationDate' => 'required|date',
             'isActive' => 'required|boolean',
             'isComplete' => 'required|boolean',
-            'userId' => 'required|int'
+            'userCreateId' => 'required|int',
+            'userAssignId' => 'required|int'
         ]);
 
         if ($validator->fails()) {
@@ -84,7 +85,8 @@ class tasksController extends Controller
             'expirationDate' => $request->expirationDate,
             'isActive' => $request->isActive,
             'isComplete' => $request->isComplete,
-            'userId' => $request->userId
+            'userCreateId' => $request->userCreateId,
+            'userAssignId' => $request->userAssignId
         ]);
 
         if (!$tasks) {
