@@ -10,10 +10,9 @@ class tasksController extends Controller
     public function index(Request $request) {
        
         $perPage = $request->input('per_page', 10);
+        $isActive = $request->input('isActive', true);
 
-        $query = Tasks::query()->where('isActive', '=', 1);
-
-        $tasks = $query->get()->paginate($perPage);
+        $tasks = Tasks::where('isActive', $isActive)->paginate($perPage);
         
         if ($tasks->isEmpty()) {
             $data = [
