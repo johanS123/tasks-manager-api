@@ -14,7 +14,7 @@ class usersController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         
-        $users = Users::all();
+        $users = Users::all()->makeHidden(['password']);
         
         if ($users->isEmpty()) {
             $data = [
@@ -73,7 +73,7 @@ class usersController extends Controller
     }
 
     public function show($id) {
-        $users = Users::find($id);
+        $users = Users::find($id)->makeHidden(['password']);;
         
         if (!$users) {
             $data = [
