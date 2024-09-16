@@ -29,7 +29,7 @@ require base_path('routes/api/users.php');
 require base_path('routes/api/roles.php');
 
 // Route::get('/users', [usersController::class, 'index']);
-// Route::get('/users/{id}', [usersController::class, 'show']);
+// 
 // Route::post('/users', [usersController::class, 'store']);
 // Route::put('/users/{id}', [usersController::class, 'update']);
 // Route::patch('/users/{id}', [usersController::class, 'updatePartial']);

@@ -143,7 +143,8 @@ class tasksController extends Controller
             'expirationDate' => 'required|date',
             'isActive' => 'required|boolean',
             'isComplete' => 'required|boolean',
-            'userId' => 'required|int'
+            'userCreateId' => 'required|int',
+            'userAssignId' => 'required|int'
         ]);
 
         if ($validator->fails()) {
@@ -160,14 +161,15 @@ class tasksController extends Controller
         $tasks->expirationDate = $request->expirationDate;
         $tasks->isActive = $request->isActive;
         $tasks->isComplete = $request->isComplete;
-        $tasks->userId = $request->userId;
+        $tasks->userCreateId = $request->userCreateId;
+        $tasks->userAssignId = $request->userAssignId;
 
         $tasks->save();
 
         $data = [
             'message' => 'tarea actualizada',
             'task' => $tasks,
-            'status' => 200
+            'status' => 201
         ];
         return response()->json($data, 200);
     }
