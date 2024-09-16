@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Validator;
 class tasksController extends Controller
 {
     public function index(Request $request) {
-
+       
         $perPage = $request->input('per_page', 10);
 
-        $tasks = Tasks::paginate($perPage);
+        $query = Tasks::query()->where('isActive', '=', 1);
+
+        $tasks = $query->get()->paginate($perPage);
         
         if ($tasks->isEmpty()) {
             $data = [
@@ -26,6 +28,7 @@ class tasksController extends Controller
     }
 
     public function search(Request $request) {
+        
         $title = $request->input('title');
         $description = $request->input('description');
         $isComplete = $request->input('isComplete');
@@ -59,7 +62,7 @@ class tasksController extends Controller
     }
 
     public function store(Request $request) {
-
+        
         $validator = Validator::make($request->all(),  [
             'title' => 'required',
             'description' => 'required',
@@ -106,7 +109,6 @@ class tasksController extends Controller
     }
 
     public function destroy($id) {
-
         $tasks = Tasks::find($id);
 
         if (!$tasks) {

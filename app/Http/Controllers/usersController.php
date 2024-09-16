@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Validator;
 class usersController extends Controller
 {
     public function index() {
-        // Verificar si el usuario está autenticado
-        if (!auth()->check()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+       
+        $query = Users::query()->where('isActive', '=', 1);
         
-        $users = Users::all()->makeHidden(['password']);
+        $users = $query->get()->makeHidden(['password']);
         
         if ($users->isEmpty()) {
             $data = [
@@ -29,6 +27,11 @@ class usersController extends Controller
     }
 
     public function store(Request $request) {
+        // Verificar si el usuario está autenticado
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $validator = Validator::make($request->all(),  [
             'firstname' => 'required',
             'surname' => 'required',
@@ -73,6 +76,11 @@ class usersController extends Controller
     }
 
     public function show($id) {
+        // Verificar si el usuario está autenticado
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $users = Users::find($id)->makeHidden(['password']);;
         
         if (!$users) {
@@ -92,7 +100,7 @@ class usersController extends Controller
     }
 
     public function destroy($id) {
-
+       
         $users = Users::find($id);
 
         if (!$users) {
@@ -115,6 +123,7 @@ class usersController extends Controller
     }
 
     public function update(Request $request, $id) {
+       
         $users = Users::find($id);
 
         if (!$users) {
