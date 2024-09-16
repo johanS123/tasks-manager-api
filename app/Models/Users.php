@@ -19,4 +19,8 @@ class Users extends Model
         'isActive',
         'roleId'
     ];
+
+    protected $casts = [
+        'isActive' => 'boolean'
+    ];
 }

@@ -20,4 +20,9 @@ class Tasks extends Model
         'userCreateId',
         'userAssignId'
     ];
+
+    protected $casts = [
+        'isActive' => 'boolean',
+        'isComplete' => 'boolean'
+    ];
 }
